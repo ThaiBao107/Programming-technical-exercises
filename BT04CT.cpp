@@ -34,6 +34,8 @@ void delete_1_Sv(DSDV &a, int vt);
 void xuatTT_Anh(DSDV a);
 void loadF_Anh(DSDV a);
 void add_1_SV(DSDV &a, int vt);
+int outF_sl();
+void reset_file(DSDV a, int n) ;
 
 void nhap_1_SV(SinhVien &a )
 
@@ -184,12 +186,67 @@ void menu_sua() {
 
 // ham nay sua thong tin sinh vien do nguoi dungf sua
 // chua dong bo duoc voi file
+
+void loadF_update(DSDV &a, int &n){
+    n=outF_sl();
+    a.a= new SinhVien[n];
+    ifstream inF;
+    inF.open("BT04CT.txt");
+    if(inF.is_open()) {
+        for(int i=0;i<n;i++)
+        {
+            getline(inF,a.a[i].maSV,'#');
+            if(a.a[i].maSV=="") break;
+            getline(inF,a.a[i].hoten,'#');
+            getline(inF,a.a[i].maLop,'#');
+            inF >> a.a[i].dtb;
+            cin.ignore();
+        }
+        inF.close();
+    }
+    // khoi tao
+};
+int outF_sl(){
+    string s;
+    int dem=0;
+    ifstream inF;
+    inF.open("BT04CT.txt");
+    if(inF.is_open()) {
+        while( !inF.eof()) 
+        {
+            getline(inF,s);
+            if(s=="") break;
+            dem++;
+        }
+    }
+    else
+        cout<<"Khong mo duoc file"<<endl;
+    return dem;
+}
+
+void reset_file(DSDV a, int n) 
+{
+    ofstream outF;
+    outF.open("BT04CT.txt");
+    if(outF.is_open()) 
+    {
+        for(int i=0;i<n;i++) 
+        {
+            load_1_SV(a.a[i]);
+        }
+        outF.close();
+    }
+    else
+        cout<<"Khong mo duoc file"<<endl;
+}
+
 void updateSV(DSDV &a) {
     char choose;
     int sl=a.n;
-    manhinh:
+      manhinh:
         do{
             int chon;
+            xuatDSSV(a);
             cout<<"Hien tai co "<<sl<<" sinh vien"<<endl;
             cout<<"Ban muon sua sinh vien thu :";
             while(true) 
@@ -304,10 +361,11 @@ void updateSV(DSDV &a) {
                    }
                    if(c5 =='1') goto manhinh;
                    else
+                        reset_file(a,a.n);
                         return;
                 }
             }
-    }while(true);
+ }while(true);
 }
 // chua dong bo duoc file 
 void delete_1_Sv(DSDV &a, int vt) {
@@ -522,5 +580,16 @@ int main(){
         getch();
         system("cls");
     }while(true);
+    // cout<<"SL: "<<outF_sl()<<endl;
+    // cout<<endl;
+    // loadF_update(a,a.n);
+    // cout<<endl;
+    // for(int i=0;i<a.n;i++) 
+    // {
+    //     xuat_1_SV(a.a[i]);
+    //     cout<<endl;
+
+    // }
+    // cout<<a.n<<endl;
     return 0;
 }
