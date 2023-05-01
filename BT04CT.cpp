@@ -17,7 +17,7 @@ struct DSDV{
     int n;
 };
 
-void nhap_1_SV(SinhVien &a );
+void nhap_1_SV(SinhVien &a);
 void nhapDSSV(DSDV &a);
 void xuat_1_SV(SinhVien a);
 void xuatDSSV(DSDV a);
@@ -37,15 +37,13 @@ void add_1_SV(DSDV &a, int vt);
 int outF_sl();
 void reset_file(DSDV a, int n) ;
 
-void nhap_1_SV(SinhVien &a )
-
+void nhap_1_SV(SinhVien &a)
 {
     cin.ignore();
     cout<<"Ma so sinh vien: "; getline(cin,a.maSV);
     cout<<"Ho va ten: "; getline(cin,a.hoten);
     cout<<"Ma lop: "; getline(cin,a.maLop);
     cout<<"Diem trung binh: "; cin>>a.dtb;
-
 }
 
 void nhapDSSV(DSDV &a)
@@ -433,13 +431,29 @@ void menu() {
     cout<<"12.EXIT"<<endl;
 
 }
-
-void add_1_SV(DSDV &a, int vt) {
+ // cho nay nen xem lai vi neu them 1 SV nua se cap phat dong them mot phan tu nua, cap phat dong mnag moi
+void add_1_SV(DSDV &a, int vt) {  // can xem lai
     int sl=a.n;
-    for(int i=sl-1;i >= vt-1;i--){ 
-        a.a[i+1]=a.a[i];
+    SinhVien*b=new SinhVien[sl+1];
+    int sl1=sl+1;
+    // sao chep mang DL cua ma cu cho mang moi
+    for(int i=0;i<sl+1;i++) {
+        b[i]=a.a[i];
     }
-    nhap_1_SV(a.a[vt-1]);
+    // xoa mang cu
+    delete []a.a;
+    a.a = NULL;
+    //=================================
+    for(int i=sl1-1;i >= vt-1;i--){ 
+        b[i+1]=b[i];
+    }
+    // gan dia chi mang moi cho mang cu
+    a.a=b;
+
+    for(int i=0;i<sl1;i++) {
+        xuat_1_SV(a.a[i]);
+    }
+    // nhap_1_SV(a.a[vt-1]);
     a.n++;
 }
 
@@ -527,12 +541,12 @@ int main(){
             }
     
             break;
-            case 9: 
+            case 9:  // case 9 co van de
             if(a.a==NULL) cout<<"Chua co du lieu"<<endl;
             else 
             {
                 int vt;
-                cout<<"Nhap ci tri can them: ";
+                cout<<"Nhap vi tri can them: ";
                 while(true) {
                     cin>>vt;
                     if(vt > 0 && vt <= a.n) break;
@@ -540,11 +554,12 @@ int main(){
                         cout<<"Nhap sai, nhap lai: ";
                 }
                 add_1_SV(a,vt);
+                cout<<"1"<<endl;
+                
                 getch();
                 system("cls");
                 xuatDSSV(a);
             }
-        
             break;
             case 10:
             if(a.a==NULL) cout<<"Chua co du lieu"<<endl;
