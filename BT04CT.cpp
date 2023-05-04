@@ -216,10 +216,11 @@ int outF_sl(){
             if(s=="") break;
             dem++;
         }
+        inF.close();
+        return dem;
     }
     else
         cout<<"Khong mo duoc file"<<endl;
-    return dem;
 }
 
 void reset_file(DSDV a, int n) 
@@ -434,27 +435,40 @@ void menu() {
  // cho nay nen xem lai vi neu them 1 SV nua se cap phat dong them mot phan tu nua, cap phat dong mnag moi
 void add_1_SV(DSDV &a, int vt) {  // can xem lai
     int sl=a.n;
-    SinhVien*b=new SinhVien[sl+1];
-    int sl1=sl+1;
+    // SinhVien*b=new SinhVien[sl+1];
+    // int sl1=sl+1;
+        SinhVien sv;
+        nhap_1_SV(sv);
+        load_1_SV(sv);
     // sao chep mang DL cua ma cu cho mang moi
-    for(int i=0;i<sl+1;i++) {
-        b[i]=a.a[i];
-    }
-    // xoa mang cu
-    delete []a.a;
-    a.a = NULL;
-    //=================================
-    for(int i=sl1-1;i >= vt-1;i--){ 
-        b[i+1]=b[i];
-    }
-    // gan dia chi mang moi cho mang cu
-    a.a=b;
+    // for(int i=0;i<sl+1;i++) {
+    //     if(i<sl) break;
+    //     b[i]=a.a[i];
+    // }
 
-    for(int i=0;i<sl1;i++) {
-        xuat_1_SV(a.a[i]);
-    }
+    // for(int i=0;i<sl1;i++) {
+    //     xuat_1_SV(b[i]);
+    // }
+
+    // xoa mang cu
+    // delete []a.a;
+    // a.a = NULL;
+
+    //=================================
+    // for(int i=sl1-1;i >= vt-1;i--){ 
+    //     b[i+1]=b[i];
+    // }
+    // nhap_1_SV(b[vt-1]);
+    // gan dia chi mang moi cho mang cu
+    // a.a=b;
+
+    // for(int i=0;i<sl1;i++) {
+    //     xuat_1_SV(b[i]);
+    // }
     // nhap_1_SV(a.a[vt-1]);
-    a.n++;
+    // a.n++;
+    // delete []b;
+    // b=NULL;
 }
 
 int main(){ 
@@ -558,7 +572,7 @@ int main(){
                 
                 getch();
                 system("cls");
-                xuatDSSV(a);
+                // xuatDSSV(a);
             }
             break;
             case 10:
