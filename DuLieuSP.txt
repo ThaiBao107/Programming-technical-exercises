@@ -2,5 +2,5 @@
 NP01#Ban chai#2300#1800.35#Nhu yeu pham
 NP02#Kem danh rang#980#9800.5#Nhu yeu pham
 NP03#Choi lau nha#1000#18500#Nhu yeu pham
-NP04#Sofa dai#500#1200000#Vat dung
+NP04#Sofa dai#500#120000#Vat dung
 NP05#Ban kinh#450#985000#Vat dung

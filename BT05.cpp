@@ -278,19 +278,19 @@ int xuat_F_KT(Lop *a, int n){   // SOS
 
 
 void menu() {
-    cout<<                           "============================================"<<endl;
-    cout<<                           "=                  MENU                    ="<<endl;
-    cout<<                           "= 1. Tao danh sach cac lop sinh vien       ="<<endl;
-    cout<<                           "= 2. Load file dach sach lop               ="<<endl;
-    cout<<                           "= 3. Xuat danh sach lop                    ="<<endl; 
-    cout<<                           "= 4. Tong so luong SV khoa CNTT            ="<<endl;
-    cout<<                           "= 5. Dem lop khoa Ngoai ngu                ="<<endl;
-    cout<<                           "= 6. Xoa 1 lop sinh vien                   ="<<endl;
-    cout<<                           "= 7. Xoa cac lop Co ban                    ="<<endl;
-    cout<<                           "= 8. Load file danh sach khoa KT & QLC     ="<<endl;
-    cout<<                           "= 9. CHUA LAM                              ="<<endl;
-    cout<<                           "= 10. EXIT                                 ="<<endl;
-    cout<<                           "============================================"<<endl;
+    cout<<"                           ============================================"<<endl;
+    cout<<"                           =                  MENU                    ="<<endl;
+    cout<<"                           = 1. Tao danh sach cac lop sinh vien       ="<<endl;
+    cout<<"                           = 2. Load file dach sach lop               ="<<endl;
+    cout<<"                           = 3. Xuat danh sach lop                    ="<<endl; 
+    cout<<"                           = 4. Tong so luong SV khoa CNTT            ="<<endl;
+    cout<<"                           = 5. Dem lop khoa Ngoai ngu                ="<<endl;
+    cout<<"                           = 6. Xoa 1 lop sinh vien                   ="<<endl;
+    cout<<"                           = 7. Xoa cac lop Co ban                    ="<<endl;
+    cout<<"                           = 8. Load file danh sach khoa KT & QLC     ="<<endl;
+    cout<<"                           = 9. CHUA LAM                              ="<<endl;
+    cout<<"                           = 10. EXIT                                 ="<<endl;
+    cout<<"                           ============================================"<<endl;
 }
 int main(){
     Lop* sv=NULL;

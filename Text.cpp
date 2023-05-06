@@ -38,15 +38,60 @@ int c_length(char *a) {
 
 // sao chep chuoi
 
+void them(int *a, int &n)
+{
+    int s=3;
+    int*b=new int[s+n];
+    n+=s;
+    cout<<n<<endl;
+
+    for(int i=0;i<n;i++)
+        b[i]=a[i];
+    
+    cout<<endl<<endl;
+
+    for(int i=0;i<s;i++)
+        cout<<b[i]<<" ";
+    cout<<b<<endl;
+
+    cout<<endl<<endl;
+
+    delete[]a;
+    a=NULL;
+
+
+    
+    cout<<"DC: "<<a<<endl;
+    
+    a=b;
+    a[s]=4;
+    a[s+1]=5;
+    a[s+2]=6;
+    for(int i=0;i<n;i++)
+        cout<<a[i]<<" ";
+
+
+    cout<<"S: "<<n<<endl;
+    cout<<"=============="<<endl;
+}
+
 
 int main(){
     // string a;
     // cout<<"\n nhap chuoi: "; getline(cin,a);
-    char a[20];
-    cout<<"Nhap chuoi: ";
-    cin.getline(a,20);
-    cout<<strlen(a)<<endl;
-      cout<<" after :"<<a<<endl;
+    // char a[20];
+    // cout<<"Nhap chuoi: ";
+    // cin.getline(a,20);
+    // cout<<strlen(a)<<endl;
+    //   cout<<" after :"<<a<<endl;
+
+    int *a;
+    int n=3;
+    cout<<"Nhap"<<endl;
+    for(int i=0;i<n;i++)
+        cin>> a[i];
+
+    them(a,n);
     // char *p =a;
     // cout<<a<<endl;
     // cout << a.length()<<endl;
@@ -58,5 +103,7 @@ int main(){
 
     // p=NULL;
     // delete []p;
+    delete[]a;
+    a=NULL;
     return 0;
 }
