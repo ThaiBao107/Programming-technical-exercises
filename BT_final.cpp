@@ -1,10 +1,13 @@
+#define _CRT_SECURE_NO_WARNING
 #include<iostream>
-#include<string>
 #include<cstring>
 #include<fstream>
 #include<conio.h>
 #include<cmath>
 #include<sstream>
+#include<cstdlib>
+#include<ctime>
+#include<random>
 using namespace std;
 const int maxS=30;
 const int maxSL=50;
@@ -28,7 +31,27 @@ long double tinh_T(SanPham *a, int n);
 void menu();
 void nhap_1_SP(SanPham &a);
 void nhapDSSP(SanPham *&a, int &n);
+void randomID(SanPham &a);
+void xoaKT(char *a, int vt);
+void chuan_Hoa(char *a);
 
+
+
+int docSL()
+{
+    int s;
+    ifstream indata;
+    indata.open("DuLieuSP.txt");
+    if(indata.is_open())
+    {
+        indata >> s;
+    indata.close();
+    }
+    else
+        cout<<"Khong mo duoc file"<<endl;
+
+    return s;
+}
 void docDSSP(SanPham *&a, int &n) 
 {
     /*
@@ -47,37 +70,20 @@ void docDSSP(SanPham *&a, int &n)
     delete b;
     b = nullptr
     */
-   //mo file lan 1
-    ifstream inData;
-    int s;
-    inData.open("DuLieuSP.txt");
-    if(inData.is_open())
-    {
-        cout<<"Doc file lan 1"<<endl;
-            int s;
-            inData >> s;
-        inData.close();
-
-    }
-    else
-        cout<<"Khong mo duoc file"<<endl;
-    
-    SanPham*b=new SanPham[s+n]; 
+   //mo file lan 1SanPham*b=new SanPham[s+n]; 
     // mo file lan 2
+    ifstream inData;
+    int c=docSL();
+    int s;
+    SanPham*b=new SanPham[c+n];
     inData.open("DuLieuSP.txt");
     if(inData.is_open())
     {
         cout<<"Doc file lan 2"<<endl;
-            while(!inData.eof())
+            inData >> s;
+            cout<<s<<endl;
+            for(int i=0;i<c;i++)
             {
-            int c;
-            inData >> c;
-            cout<<c<<endl;
-            getch();
-            for(int i=0;i<s;i++)
-            {
-                cout << "hahahahaa" << endl;
-
                 inData.getline(b[i].maSP,maxS,'#');
                 if(b[i].maSP == "") break;
                 inData.getline(b[i].tenSP,maxS,'#');
@@ -87,36 +93,56 @@ void docDSSP(SanPham *&a, int &n)
                 inData.ignore();
                 inData.getline(b[i].PL,maxS);
             }
-            }
-            //xuatDSSP(b,s+n);
-            cout<<"Ket thuc lan 2"<<endl;
-            getch();
         inData.close();
     }
     else
         cout<<"Khong mo duoc file"<<endl;
 
-    cout<<"Sao chep"<<endl;
+    // cout<<"====================================="<<endl;
+    // cout<<"XUat mang thu b 1"<<endl;
+    // xuatDSSP(b,c);
+    // cout<<"======================================="<<endl;
     int dem=0;
-     n+=s;
-    for(int i=s;i<n;i++)
+    for(int i=c;i<c+n;i++)
     {
-        b[i]=a[dem++];
-    
+        b[i]= a[dem++]; 
     }
+    
+    // cout<<"=============================="<<endl;
+    // cout<<"Xuat mang b thu 2" <<endl;
+    // xuatDSSP(b,c+n);
+    // cout<<endl<<endl<<"================================="<<endl;
+
     delete[]a;
-    a=new SanPham[n];
+    a=NULL;
+
+    a=new SanPham[c+n];
+    n+=c;
+
     for(int i=0;i<n;i++)
     {
         a[i]=b[i];
     }
 
+    
+    // cout<<"Sao chep"<<endl;
+    // int dem=0;
+    //  n+=s;
+    // for(int i=s;i<n;i++)
+    // {
+    //     b[i]=a[dem++];
+    
+    // }
+    // delete[]a;
+    // a=new SanPham[n];
+    // for(int i=0;i<n;i++)
+    // {
+    //     a[i]=b[i];
+    // }
     delete[]b;
     b=NULL;
 
-   xuatDSSP(a,n);
-    cout<<"Lay file thanh cong"<<endl;  
-            
+
 }
 
 void xuatDSSP(SanPham *a, int n)
@@ -202,15 +228,39 @@ void menu()
     cout<<"                           ============================================"<<endl;
 }
 
+
+void randomID(SanPham &a)
+{
+    srand(time(NULL));
+    const char r[]="qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM0123456789";
+    const int n=4;
+    char *id=new char[n+1];
+    for(int i=0;i<n;i++)
+    {
+        id[i]=r[rand() % strlen(r)];
+    }
+    id[n]='\0';
+    strcpy(a.maSP,id);
+    cout<<id<<endl;
+
+    delete[]id;
+    id=NULL;
+
+}
 void nhap_1_SP(SanPham &a)
 {
     cout<<endl;
-    cout<<"Ma SP: "; cin.getline(a.maSP,maxS);
+    cout<<"Ma SP: "; 
+    randomID(a);
     cout<<"Ten SP: "; cin.getline(a.tenSP,maxS);
+    chuan_Hoa(a.tenSP);
+    cout<<a.tenSP<<endl;
     cout<<"So luong: "; cin >> a.SL;
     cout<<"Don gia: "; cin >> a.DG;
     cin.ignore();
     cout<<"Phan Loai: "; cin.getline(a.PL,maxS);
+    chuan_Hoa(a.PL);
+    cout<<a.PL<<endl;
 
 }
 
@@ -234,6 +284,73 @@ void nhapDSSP(SanPham *&a, int &n)
     cout<<"Nhap du lieu thanh cong"<<endl;
 }
 
+
+void xoaKT(char a[], int vt)
+{
+    int n=strlen(a);
+    for(int i=vt+1;i<n;i++)
+    {
+        a[i-1]=a[i];
+    }
+    a[n-1]='\0';
+}
+void chuan_Hoa(char a[])
+{
+    while(true)
+    {
+        if(a[0] == ' ') xoaKT(a,0);
+        else
+            break;
+    }
+    
+    while(true)
+    {
+        if(a[strlen(a) - 1] == ' ') xoaKT(a,a[strlen(a)]-1);
+        else
+            break;
+    }
+
+
+    int s=strlen(a);
+    for(int i=0;i<s;i++)
+    {
+        if(a[i] == ' ' && a[i+1] == ' ')
+        {
+            xoaKT(a,i);
+            i--;
+        }
+    }
+
+    if(a[0] >= 'a' && a[0] <= 'z')
+        a[0] -= 32;
+}
+
+
+bool an(char a,char b)
+{
+    if(a=='a' && b=='n')
+        return true;
+    else
+        return false;
+}
+
+int check(SanPham *a, int n)   // can coi lai
+{
+    int dem=0;
+    for(int i=0;i<n;i++)
+    {
+    int s=strlen(a[i].tenSP);
+    for(int j=0;j<s-1;j++)
+    {
+        if(an(a->tenSP[j],a->tenSP[j+1])==true) 
+        {
+            dem++;
+            break;
+        }
+    }
+    }
+    return dem;
+}
 int main() 
 {
     SanPham *a=NULL;
@@ -241,12 +358,16 @@ int main()
 
     nhapDSSP(a,n);
     docDSSP(a,n);
+    cout<<"main"<<endl;
+    xuatDSSP(a,n);
     // cout<<"============================="<<endl;
     // list_VD(a,n);
     // load_file_VD(a,n);
     
     cout<<endl;
     cout<<"=============================="<<endl;
+
+    cout<<"Ki tu an torng ten co: "<<check(a,n)<<endl;
     // long double c=tinh_T(a,n);
     // ostringstream ss;
     // ss << c;
