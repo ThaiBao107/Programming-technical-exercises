@@ -66,6 +66,7 @@ void nhapDS(Sach *&a, int &n)
     {
         cout<<"Thong tin sach thu "<<i+1<<": "<<endl;
         nhap_1_DS(*(a+i));
+        cin.ignore();
         cout<<endl;
     }
 
@@ -89,17 +90,19 @@ int docSL()
 
 void docDS(Sach *&a, int &n)
 {
-    int s=docSL();
-    Sach* b=new Sach[s+n];
+    int s;
+    // Sach* b=new Sach[s+n];
     ifstream inF;
     inF.open("DuLieuS.txt");
     if(inF.is_open())
-    {
-        int c;
-        inF >> c;
-
-        for(int i=0;i<s;i++)
+    {   
+        int y;
+        inF >> y;
+        cin.ignore();
+        Sach* b=new Sach[y+n];
+        for(int i=0;i<y;i++)
         {
+            inF.get();
             inF.getline(b[i].maS,maxS,'#');
             inF.getline(b[i].tenS,maxS,'#');
             inF >> b[i].d_m_y.d;
@@ -110,20 +113,16 @@ void docDS(Sach *&a, int &n)
             cin.ignore();
         }
         inF.close();
-    }
-    else
-        cout<<"Khong mo duoc file"<<endl;
-
-        int dem=0;
-        for(int i=s;i<s+n;i++)
+          int dem=0;
+        for(int i=y;i<y+n;i++)
         {
-            b[s] = a[dem++];
+            b[y] = a[dem++];
         }
 
         delete[]a;
         a=NULL;
 
-        n+=s;    
+        n+=y;    
         a=new Sach[n];
         for(int i=0;i<n;i++)
         {
@@ -132,6 +131,28 @@ void docDS(Sach *&a, int &n)
 
         delete[]b;
         b=NULL;
+    }
+    else
+        cout<<"Khong mo duoc file"<<endl;
+
+        // int dem=0;
+        // for(int i=s;i<s+n;i++)
+        // {
+        //     b[s] = a[dem++];
+        // }
+
+        // delete[]a;
+        // a=NULL;
+
+        // n+=s;    
+        // a=new Sach[n];
+        // for(int i=0;i<n;i++)
+        // {
+        //     a[i]=b[i];
+        // }
+
+        // delete[]b;
+        // b=NULL;
 
 }
 
@@ -182,7 +203,7 @@ int dem_2019(Sach *a, int n)
     return dem;
 }
 
-void xoa_1_DS(Sach *&a, int &n, char ma[])
+void xoa_1_DS(Sach *a, int &n, char ma[])
 {
    for (int i = 0; i < n; i++) {
         if (strcmp(a[i].maS, ma) == 0) {
@@ -190,10 +211,16 @@ void xoa_1_DS(Sach *&a, int &n, char ma[])
                     a[j] =a[j+1];
             }
             n--;
-            i--;
             break;
         }
     }
+} 
+
+void xoaDS(Sach *a, int &n, int vitri)
+{
+    for(int i=vitri+1;i<n;i++)
+        a[vitri -1]=a[i];
+    n--;
 }
 
 void menu()
@@ -272,25 +299,33 @@ int main()
                 if(a==NULL) cout<<"Chua co danh sach"<<endl;
                 else
                 {
+                    cin.ignore();
                     char ma[maxS+1];
-                    cout<<"Nhap ma can xoa: "; cin >> ma;
-                  int productIndex = -1;
-                    for (int i = 0; i < n; i++) {
-                        if (strcmp(a[i].maS, ma) == 0) {
-                            productIndex = i;
-                            break;
-                        }
-                     }
-                     if (productIndex == -1) {
-                        cout << "Product not found" << endl;
-                    } 
-                    else {
-                    for (int i = productIndex; i < n - 1; i++) {
-                         a[i] = a[i + 1];
-                         }
-                        n--;
-                        cout << "Product deleted" << endl;
-                     }
+                    cout<<"Nhap ma can xoa: "; 
+                    cin.getline(ma,maxS);
+                    cout<<"==================================="<<endl;
+                    cin.ignore();
+                    cout<<"Ma: "<<ma<<endl;
+                    cout<<"Ma trong struct: "<<a[2].maS<<endl;
+                    int y=strcmp(a[2].maS,ma);
+                    cout<< "KQ: "<<y<<endl; 
+
+                    cout<<"==================================="<<endl;
+                //   int productIndex = -1;
+                //     for (int i = 0; i < n; i++) {
+                        // cout<<"Ma S: "<<a[i].maS<<endl;
+                        xoa_1_DS(a,n,ma);
+                    //     if (strcmp(a[i].maS, ma) == 0) {
+                    //         xoaDS(a,n,i);
+                    //         cout<<"Da co"<<endl;
+                    //     }
+                    //     else
+                    //         cout<<"Khong ton tai"<<endl;
+                    //  }
+
+                    //  if (productIndex == -1) {
+                    //     cout << "Product not found" << endl;
+                    // } 
                 xuatDL(a,n);
                 }
                 cout<<"Nhap enter de tro ve man hinh chinh: ";
@@ -314,5 +349,4 @@ int main()
     }while(true);
 
     return 0;
-
 }

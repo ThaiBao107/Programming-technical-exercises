@@ -3,6 +3,11 @@
 #include<cstring>
 using namespace std;
 
+struct text
+{
+    char a[30];
+};
+
 int t_Tong(string a)
 {
     int s=a.length();
@@ -76,6 +81,7 @@ void them(int *a, int &n)
 }
 
 
+
 int main(){
     // string a;
     // cout<<"\n nhap chuoi: "; getline(cin,a);
@@ -84,15 +90,26 @@ int main(){
     // cin.getline(a,20);
     // cout<<strlen(a)<<endl;
     //   cout<<" after :"<<a<<endl;
+    text b;
+    
+    // cout<<"Nhap"<<endl;
+    // for(int i=0;i<n;i++)
+    //     cin>> a[i];
 
-    int *a;
-    int n=3;
-    cout<<"Nhap"<<endl;
-    for(int i=0;i<n;i++)
-        cin>> a[i];
+    // them(a,n);
+    // // char *p =a;
+    char a[30];
+    cout<<"Nhap cstring: ";
+    cin >> a;
+    cout<<a<<endl;
+    cout<<"Nhap cstring trong struct: ";
+    cin>> b.a;
 
-    them(a,n);
-    // char *p =a;
+    int n=strcmp(a,b.a);
+    cout<<n<<endl;
+    
+
+
     // cout<<a<<endl;
     // cout << a.length()<<endl;
     // cout<<"==========================="<<endl;
@@ -103,7 +120,5 @@ int main(){
 
     // p=NULL;
     // delete []p;
-    delete[]a;
-    a=NULL;
     return 0;
 }
