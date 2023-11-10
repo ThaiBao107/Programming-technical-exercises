@@ -1,0 +1,62 @@
+USE NORTHWND
+GO
+
+--Bai 2
+--SELECT [CustomerID],[CompanyName],[ContactTitle],[Address],[City]
+--FROM 
+
+SELECT COUNT(*) 
+FROM [dbo].[Customers]
+
+
+SELECT * FROM [dbo].[Customers] AS C,[dbo].[Orders] AS O
+WHERE C.CustomerID = O.CustomerID
+
+SELECT * FROM [dbo].[Customers] AS C,[dbo].[Orders] AS O
+WHERE C.Country = 'Mexico' AND C.CustomerID = O.CustomerID
+
+SELECT [CustomerID],[CompanyName],[ContactName],[Address],[City]
+FROM [dbo].[Customers]
+WHERE Customers.Country = 'London' OR Customers.Country = 'France'
+
+
+SELECT [ContactName],[ContactTitle] 
+FROM [dbo].[Customers]
+WHERE (ContactTitle='Sales Manager' AND Customers.Country = 'USA') 
+OR (ContactTitle='Owner' AND Customers.Country = 'Mexico')
+
+
+SELECT [ContactName],[ContactTitle] 
+FROM [dbo].[Customers]
+WHERE (ContactTitle='Sales Manager' AND Customers.Country = 'USA') 
+OR NOT (ContactTitle='Owner' AND Customers.Country = 'Mexico')
+
+SELECT [OrderID],[OrderDate],CompanyName,LastName
+FROM [dbo].[Orders],Customers,Employees
+WHERE Orders.CustomerID = Customers.CustomerID and Orders.EmployeeID = Employees.EmployeeID
+and Month(OrderDate) = 6 and Year(OrderDate) = 1997
+
+
+SELECT OrderID,OrderDate
+FROM [dbo].[Orders], Customers, Employees
+WHERE Orders.CustomerID = Customers.CustomerID and Orders.EmployeeID = Employees.EmployeeID
+and Month(OrderDate) = 2 and Year(OrderDate) = 1997
+
+
+SELECT [ProductID],[ProductName]
+FROM [dbo].[Products]
+WHERE ProductName like 'CH%'
+
+SELECT ProductID,UnitPrice,UnitsInStock
+FROM [dbo].[Products]
+WHERE (Discontinued = 1) AND (UnitsInStock > 0)
+
+SELECT [CompanyName],[ContactName],[Country],[Phone],[Fax]
+FROM [dbo].[Customers]
+WHERE 
+
+
+
+
+
+
